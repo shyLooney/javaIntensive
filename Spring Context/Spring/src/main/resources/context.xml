@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="preProcessorToLowerImpl" class="preprocessor.PreProcessorToLowerImpl"/>
+    <bean id="preProcessorToUpperImpl" class="preprocessor.PreProcessorToUpperImpl"/>
+
+    <bean id="renderStandardImplLower" class="renderer.RendererStandardImpl">
+        <constructor-arg ref="preProcessorToLowerImpl"/>
+    </bean>
+
+    <bean id="renderStandardImplUpper" class="renderer.RendererStandardImpl">
+        <constructor-arg ref="preProcessorToUpperImpl"/>
+    </bean>
+
+    <bean id="renderErrImplLower" class="renderer.RendererErrImpl">
+        <constructor-arg ref="preProcessorToLowerImpl"/>
+    </bean>
+
+    <bean id="renderErrImplUpper" class="renderer.RendererErrImpl">
+        <constructor-arg ref="preProcessorToUpperImpl"/>
+    </bean>
+
+    <bean id="printerWithPrefix" class="printer.PrinterWithPrefixImpl">
+        <constructor-arg ref="renderStandardImplUpper"/>
+        <property name="prefix" value="aboba"/>
+    </bean>
+
+    <bean id="printerWithPrefixImplStandardLower" class="printer.PrinterWithPrefixImpl">
+        <constructor-arg ref="renderStandardImplLower"/>
+        <property name="prefix" value="aboba"/>
+    </bean>
+
+    <bean id="printerWithDateTimeImplStandardUpper" class="printer.PrinterWithDateTimeImpl">
+        <constructor-arg ref="renderStandardImplUpper"/>
+    </bean>
+
+    <bean id="printerWithDateTimeImplStandardLower" class="printer.PrinterWithDateTimeImpl">
+        <constructor-arg ref="renderStandardImplLower"/>
+    </bean>
+
+
+    <bean id="printerWithPrefixImplErrUpper" class="printer.PrinterWithPrefixImpl">
+        <constructor-arg ref="renderErrImplUpper"/>
+        <property name="prefix" value="aboba"/>
+    </bean>
+
+    <bean id="printerWithPrefixImplErrLower" class="printer.PrinterWithPrefixImpl">
+        <constructor-arg ref="renderErrImplLower"/>
+        <property name="prefix" value="aboba"/>
+    </bean>
+
+    <bean id="printerWithDateTimeImplErrUpper" class="printer.PrinterWithDateTimeImpl">
+        <constructor-arg ref="renderErrImplUpper"/>
+    </bean>
+
+    <bean id="printerWithDateTimeImplErrLower" class="printer.PrinterWithDateTimeImpl">
+        <constructor-arg ref="renderErrImplLower"/>
+    </bean>
+
+
+</beans>

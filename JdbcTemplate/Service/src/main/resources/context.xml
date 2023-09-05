@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>db.properties</value>
+        </property>
+    </bean>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${db.url}" />
+    </bean>
+
+    <bean name="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="jdbcUrl" value="${db.url}" />
+    </bean>
+
+    <bean name="usersRepositoryJdbc" class="school21.spring.service.repositories.UsersRepositoryJdbcImpl">
+        <constructor-arg ref="dataSourceHikari"/>
+    </bean>
+
+    <bean name="usersRepositoryJdbcTemplate" class="school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+</beans>
